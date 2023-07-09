@@ -1,4 +1,4 @@
-# Made by Dorato Nollan, Sarmiento
+# Made by Dorato, Nollan, Sarmiento
 import customtkinter as ctk
 import tkinter as tk
 from tkinter import ttk
@@ -937,6 +937,10 @@ def delete_tenant():
         cursor.executemany(
             "DELETE FROM tenants WHERE Tenant_ID = ?", [(a,) for a in ids_to_delete]
         )
+        cursor.executemany(
+            "DELETE FROM emergency_contact WHERE Tenant_ID = ?",
+            [(a,) for a in ids_to_delete],
+        )
 
         # Commit changes
         conn.commit()
@@ -946,6 +950,8 @@ def delete_tenant():
 
         # Add a little message box for fun
         messagebox.showinfo("Deleted!", "Tenant Info Has Been Deleted!")
+        tenant_query()
+        emergency_contacts_query()
 
 
 def update_tenant_info():
