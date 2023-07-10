@@ -2969,9 +2969,28 @@ def update_room_widget():
     clear_entry_button.place(relx=0.65, rely=0.70)
 
 
+# Clear Entries in the Combobox
+def clear_combobox():
+    tenant_ID_entry.configure(values="")
+
+
 # Widgets for Add and Update Bills
+def my_upd(*args):
+    # Create a new database or connect to one that exists
+    conn = sqlite3.connect("boarding_house.db")
+    # Create a cursor instance
+    cursor = conn.cursor()
+    tenant_ID_entry.set("")
+    query = "SELECT Tenant_ID from room WHERE Room_ID ='" + text.get() + "'"
+    cursor.execute(query)
+    result = cursor.fetchall()
+    for ids in result:
+        ids_of_tenants.append(ids[0])
+    tenant_ID_entry.configure(values=ids_of_tenants)
+
+
 def add_bills_widget():
-    global bill_id_entry, room_id_entry, tenant_ID_entry, bill_name_entry, prev_entry, current_entry, rate_entry, cost_entry
+    global bill_id_entry, room_id_entry, tenant_ID_entry, bill_name_entry, prev_entry, current_entry, rate_entry, cost_entry, text, ids_of_tenants
     # Windows
     add_bills = tk.Toplevel(bill_frame)
     add_bills.title("Add Bills")
@@ -3023,6 +3042,10 @@ def add_bills_widget():
     for ids in results:
         ids_of_rooms.append(ids[0])
 
+    # For linking
+    ids_of_tenants = []
+    text = tk.StringVar()
+    text.trace("w", my_upd)
     room_id_entry = ctk.CTkComboBox(
         add_entry_frames,
         font=("Helvetica", 12),
@@ -3031,6 +3054,7 @@ def add_bills_widget():
         values=ids_of_rooms,
         button_hover_color="#F2E6D0",
         dropdown_hover_color="#BFAE99",
+        variable=text,
     )
     room_id_entry.set("")
     room_id_entry.grid(row=0, column=3, padx=10, pady=10)
@@ -3047,18 +3071,6 @@ def add_bills_widget():
     )
     tenant_ID_label.grid(row=1, column=0, padx=10, pady=10)
 
-    # Create a new database or connect to one that exists
-    conn = sqlite3.connect("boarding_house.db")
-    # Create a cursor instance
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT Tenant_ID from tenants")
-
-    results = cursor.fetchall()
-    # List containing the IDs of Tenant
-    ids_of_tenants = []
-    for ids in results:
-        ids_of_tenants.append(ids[0])
     tenant_ID_entry = ctk.CTkComboBox(
         add_entry_frames,
         font=("Helvetica", 12),
@@ -3323,9 +3335,26 @@ def update_bills_widget():
     clear_entry_button.place(relx=0.65, rely=0.70)
 
 
+# Update the Combobox values based on the selection
+def my_upd2(*args):
+    # Clear the values in the Combobox
+    tenant_ids_entry.set("")
+
+    # Create a new database or connect to one that exists
+    conn = sqlite3.connect("boarding_house.db")
+    # Create a cursor instance
+    cursor = conn.cursor()
+
+    query = "SELECT Tenant_ID from room WHERE Room_ID ='" + text_2.get() + "'"
+    cursor.execute(query)
+    result = cursor.fetchall()
+    ids_of_tenants_2 = [ids[0] for ids in result]
+    tenant_ids_entry["values"] = ids_of_tenants_2
+
+
 # Widgets for Add and Update Payment
 def add_payment_widget():
-    global payment_ID_entry, room_ids_entry, tenant_ids_entry, payment_name_entry, payment_date_entry, payment_amount_entry, payment_method_entry, status_entry
+    global payment_ID_entry, room_ids_entry, tenant_ids_entry, payment_name_entry, payment_date_entry, payment_amount_entry, payment_method_entry, status_entry, ids_of_tenants_2, text_2
     # Windows
     add_payment = tk.Toplevel(payment_history_frame)
     add_payment.title("Add Payment")
@@ -3364,6 +3393,13 @@ def add_payment_widget():
     )
     room_ids_label.grid(row=0, column=2, padx=10, pady=10)
 
+    # Linker
+    text_2 = tk.StringVar()
+    text_2.trace("w", my_upd2)
+
+    # List containing the IDs of Tenant
+    ids_of_tenants_2 = []
+
     # Create a new database or connect to one that exists
     conn = sqlite3.connect("boarding_house.db")
     # Create a cursor instance
@@ -3385,6 +3421,7 @@ def add_payment_widget():
         values=ids_of_rooms,
         button_hover_color="#F2E6D0",
         dropdown_hover_color="#BFAE99",
+        variable=text_2,
     )
     room_ids_entry.set("")
     room_ids_entry.grid(row=0, column=3, padx=10, pady=10)
@@ -3401,24 +3438,12 @@ def add_payment_widget():
     )
     tenant_ids_label.grid(row=1, column=0, padx=10, pady=10)
 
-    # Create a new database or connect to one that exists
-    conn = sqlite3.connect("boarding_house.db")
-    # Create a cursor instance
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT Tenant_ID from tenants")
-
-    results = cursor.fetchall()
-    # List containing the IDs of Tenant
-    ids_of_tenants = []
-    for ids in results:
-        ids_of_tenants.append(ids[0])
     tenant_ids_entry = ctk.CTkComboBox(
         add_entry_frames,
         font=("Helvetica", 12),
         height=30,
         width=140,
-        values=ids_of_tenants,
+        values=ids_of_tenants_2,
         button_hover_color="#F2E6D0",
         dropdown_hover_color="#BFAE99",
     )
