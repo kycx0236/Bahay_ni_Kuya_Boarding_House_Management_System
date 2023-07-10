@@ -737,7 +737,7 @@ def payment_history_treeview():
     # Format our headings
     treeview_payment_history.heading("#0", text="", anchor="w")
     treeview_payment_history.heading("Payment_ID", text="Payment_ID", anchor="center")
-    treeview_payment_history.heading("Room_ID", text="Rent_ID", anchor="center")
+    treeview_payment_history.heading("Room_ID", text="Room_ID", anchor="center")
     treeview_payment_history.heading("Tenant_ID", text="Tenant Name", anchor="center")
     treeview_payment_history.heading(
         "Payment_Name", text="Payment Name", anchor="center"
