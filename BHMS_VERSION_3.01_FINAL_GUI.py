@@ -1550,9 +1550,6 @@ def add_bills_info():
         # Close our connection
         conn.close()
 
-        # Clear Entry Boxes
-        clear_bills_entries()
-
         # Clear the Treeview Table
         treeview_bills.delete(*treeview_bills.get_children())
 
@@ -1741,8 +1738,8 @@ def add_payment_info():
     # Create a cursor instance
     cursor = conn.cursor()
     id_to_verify = payment_ID_entry.get()
-    checking_string1 = room_id_entry.get()
-    checking_string2 = tenant_ID_entry.get()
+    checking_string1 = room_ids_entry.get()
+    checking_string2 = tenant_ids_entry.get()
     if (
         unique_payment_id_verifier(id_to_verify)
         and strings_checker(checking_string1)
@@ -1768,9 +1765,6 @@ def add_payment_info():
 
         # Close our connection
         conn.close()
-
-        # Clear Entry Boxes
-        clear_payment_entries()
 
         # Clear the Treeview Table
         treeview_emergency.delete(*treeview_emergency.get_children())
@@ -3335,21 +3329,19 @@ def update_bills_widget():
     clear_entry_button.place(relx=0.65, rely=0.70)
 
 
-# Update the Combobox values based on the selection
+# Link for Combobox in Payment
 def my_upd2(*args):
-    # Clear the values in the Combobox
-    tenant_ids_entry.set("")
-
     # Create a new database or connect to one that exists
     conn = sqlite3.connect("boarding_house.db")
     # Create a cursor instance
     cursor = conn.cursor()
-
+    tenant_ids_entry.set("")
     query = "SELECT Tenant_ID from room WHERE Room_ID ='" + text_2.get() + "'"
     cursor.execute(query)
     result = cursor.fetchall()
-    ids_of_tenants_2 = [ids[0] for ids in result]
-    tenant_ids_entry["values"] = ids_of_tenants_2
+    for ids in result:
+        ids_of_tenants_2.append(ids[0])
+    tenant_ids_entry.configure(values=ids_of_tenants_2)
 
 
 # Widgets for Add and Update Payment
