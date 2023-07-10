@@ -1251,7 +1251,7 @@ def search_ec_tenant_info():
     cursor = conn.cursor()
 
     cursor.execute(
-        "SELECT * FROM emergency_contact WHERE Tenant_Name like ?", ((lookup_records,))
+        "SELECT * FROM emergency_contact WHERE Tenant_ID like ?", ((lookup_records,))
     )
     records = cursor.fetchall()
     if records:
