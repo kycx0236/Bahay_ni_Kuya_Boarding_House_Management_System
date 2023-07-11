@@ -718,8 +718,8 @@ def payment_history_treeview():
         "Payment_Name",
         "Payment_date",
         "Payment_amount",
-        "Status",
         "Payment_method",
+        "Status",
     ]
     treeview_payment_history["columns"] = fieldnames
 
@@ -731,6 +731,7 @@ def payment_history_treeview():
     treeview_payment_history.column("Payment_Name", anchor="center", width=150)
     treeview_payment_history.column("Payment_date", anchor="center", width=130)
     treeview_payment_history.column("Payment_amount", anchor="center", width=125)
+    treeview_payment_history.column("Payment_method", anchor="center", width=125)
     treeview_payment_history.column("Status", anchor="center", width=128)
     treeview_payment_history.column("Payment_method", anchor="center", width=125)
 
@@ -748,10 +749,10 @@ def payment_history_treeview():
     treeview_payment_history.heading(
         "Payment_amount", text="Payment Amount", anchor="center"
     )
-    treeview_payment_history.heading("Status", text="Status", anchor="center")
     treeview_payment_history.heading(
         "Payment_method", text="Payment Method", anchor="center"
     )
+    treeview_payment_history.heading("Status", text="Status", anchor="center")
 
     # Create Striped Row Tags
     treeview_payment_history.tag_configure("oddrow", background="white")
