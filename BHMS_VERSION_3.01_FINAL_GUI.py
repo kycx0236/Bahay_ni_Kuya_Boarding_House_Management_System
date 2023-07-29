@@ -444,7 +444,7 @@ def create_tables():
 	"Previous_consumption"	TEXT,
 	"Current_consumption"	TEXT,
 	"Rate"	TEXT,
-	"Cost"	TEXT,
+	"Cost"	INTEGER,
 	FOREIGN KEY("Room_ID") REFERENCES "room"("Room_ID"),
 	FOREIGN KEY("Tenant_ID") REFERENCES "tenants"("Tenant_ID"),
 	PRIMARY KEY("Bill_ID" AUTOINCREMENT)
@@ -1087,6 +1087,7 @@ def search_tenant_id():
         messagebox.showinfo(
             "Notice!", "Unfortunately, your data is not found in the database."
         )
+        tenant_query()
 
 
 # EC Tenant Functions
@@ -1306,6 +1307,7 @@ def search_ec_tenant_info():
         messagebox.showinfo(
             "Notice!", "Unfortunately, your data is not found in the database."
         )
+        emergency_contacts_query()
 
 
 # Room Functions
@@ -1513,6 +1515,7 @@ def search_room_info():
         messagebox.showinfo(
             "Notice!", "Unfortunately, your data is not found in the database."
         )
+        room_assignment_query()
 
 
 # Bills Functions
@@ -1730,7 +1733,7 @@ def search_bills_info():
         messagebox.showinfo(
             "Notice!", "Unfortunately, your data is not found in the database."
         )
-
+        bill_query()
 
 # Payment Functions
 def add_payment_info():
@@ -1944,6 +1947,7 @@ def search_payment_info():
         messagebox.showinfo(
             "Notice!", "Unfortunately, your data is not found in the database."
         )
+        payment_history_query()
 
 
 # Widgets for Add and Update Tenants
@@ -2429,7 +2433,7 @@ def add_ec_tenant_widget():
 
     tenants_id_label = ctk.CTkLabel(
         add_entry_frames,
-        text="Name of Tenant",
+        text="Tenant_ID",
         height=30,
         width=150,
         fg_color="#336082",
