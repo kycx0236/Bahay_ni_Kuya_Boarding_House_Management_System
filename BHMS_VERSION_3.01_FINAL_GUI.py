@@ -2471,7 +2471,7 @@ def add_ec_tenant_widget():
     # Add Button after input
     add_btn = ctk.CTkButton(
         adding_etenant,
-        text="Add Tenant",
+        text="Add ETenant",
         height=30,
         width=100,
         corner_radius=10,
@@ -2795,7 +2795,7 @@ def add_room_widget():
     # Add Button after input
     add_btn = ctk.CTkButton(
         add_room,
-        text="Add Tenant",
+        text="Add Room",
         height=30,
         width=100,
         corner_radius=10,
@@ -2944,7 +2944,7 @@ def update_room_widget():
     # Update Button after input
     update_btn = ctk.CTkButton(
         update_room,
-        text="Update Tenant",
+        text="Update Info",
         height=30,
         width=100,
         corner_radius=10,
